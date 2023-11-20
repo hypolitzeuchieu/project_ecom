@@ -37,7 +37,7 @@ class Customer(AbstractUser):
         verbose_name_plural = "Customers"
 
     def __str__(self):
-        return self.username
+        return self.name
 
 
 class Order(models.Model):
