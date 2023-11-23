@@ -1,0 +1,19 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+
+<center >
+    <h1><font color="green"> Sign up  page </font> </h1><br><br>
+    <h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit"><font color="green">sign up</font> </button>
+        </form>
+    </h2>
+
+
+
+</center>
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+
+<center >
+    <h1><font color="green"> Sign in  page </font> </h1><br><br>
+    <h2>
+            <font color="red">{{ mes }}</font> <br><br><br>
+        <form method="post">
+            {% csrf_token %}
+
+            <label for="username">Username</label>
+            <input type="text" name="username" placeholder="Enter your username">
+            <br><br>
+
+            <label for="password">Password</label>
+            <input type="password" name="password" placeholder="Enter your password">
+            <br><br><br>
+
+
+            <button type="submit"><font color="green">sign in</font> </button>
+        </form>
+    </h2>
+
+
+
+</center>
+
+{% endblock %}

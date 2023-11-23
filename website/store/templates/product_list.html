@@ -1,0 +1,33 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <form class="card card-sm">
+            <div class="card-body row no-gutters align-items-center">
+                <div class="col">
+                    <input type="search" name="item_name" placeholder="search" class="form-control form-control-borderless">
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-success">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<br><br>
+<h1><font color="purple"> Aticles List</font></h1>
+<br><br><br>
+<div style="display:flex; gap:100px; flex-wrap: wrap">
+
+    {% for product in object_list %}
+        <div>
+            <img src="{{ product.image.url}}" alt="{{ product.name }}" style="width: 350px; height:250px ">
+            <h2>{{ product.name }}</h2>
+            <h3><a href="{{ product.get_absolute_url }}">Detail</a> </h3>
+        </div>
+{% endfor %}
+</div>
+
+{% endblock %}

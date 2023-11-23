@@ -22,22 +22,21 @@ class Product(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("detail_product", kwargs={"slug": self.slug})
+        return reverse("product_detail", kwargs={"slug": self.slug})
 
 
 class Customer(AbstractUser):
-    name = models.CharField(max_length=100)
-    email_address = models.EmailField()
-    phone_number = models.PositiveIntegerField()
-    password = models.PositiveIntegerField()
-    password_confirm = models.CharField(max_length=20)
-
+    username = models.CharField(max_length=200, unique=True)
+    email_address = models.EmailField(unique=True)
+    phone_number = models.CharField(max_length=200)
+    password = models.CharField(max_length=200)
+    USERNAME_FIELD = "username"
     class Meta:
         verbose_name = "Customer"
         verbose_name_plural = "Customers"
 
     def __str__(self):
-        return self.name
+        return self.username
 
 
 class Order(models.Model):
@@ -65,4 +64,4 @@ class Cart(models.Model):
         verbose_name_plural = "Carts"
 
     def __str__(self):
-        return self.customer.name
+        return self.customer.username
