@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
@@ -31,6 +32,7 @@ class Customer(AbstractUser):
     phone_number = models.CharField(max_length=200)
     password = models.CharField(max_length=200)
     USERNAME_FIELD = "username"
+
     class Meta:
         verbose_name = "Customer"
         verbose_name_plural = "Customers"
@@ -42,8 +44,10 @@ class Customer(AbstractUser):
 class Order(models.Model):
     user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(default=1)
-    ordered_date = models.DateTimeField(blank=True, null=True)
+    quantity = models.PositiveIntegerField(default=0)
+    price_order = models.FloatField(default=0.0)
+    ordered_date = models.BooleanField(default=False)
+    ordered_date_cart = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         verbose_name = 'Order'
@@ -54,14 +58,21 @@ class Order(models.Model):
 
 
 class Cart(models.Model):
-    customer = models.OneToOneField(AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.OneToOneField(AUTH_USER_MODEL, on_delete=models.CASCADE)
     orders = models.ManyToManyField(Order)
-    ordered_cart = models.BooleanField(default=False)
-    ordered_date_cart = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         verbose_name = "Cart"
         verbose_name_plural = "Carts"
 
+    def delete(self, *args, **kwargs):
+        for order in self.orders.all():
+            order.ordered_date = True
+            order.ordered_date_cart = timezone.now()
+            order.save()
+
+        self.orders.clear()
+        super().delete(*args, **kwargs)
+
     def __str__(self):
-        return self.customer.username
+        return self.user.username

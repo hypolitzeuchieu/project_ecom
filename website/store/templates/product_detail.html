@@ -10,8 +10,10 @@
             <h2>price : <font color="purple"> {{ product.price }} </font>$</h2>
             <h2>description : <font color="purple"> {{ product.description }}</font></h2>
 
-
-            <h5><a href="{% url 'product_list' %}">home</a></h5>
+        <center>
+                 <h5><a href="{% url 'product_list' %}">home</a></h5>
+                <h5><a href="{% url 'add_to_cart'   product.slug  %}">Add_to_cart </a></h5>
+        </center>
 
 </center>
 

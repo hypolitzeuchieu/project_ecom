@@ -1,0 +1,43 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+<br><br>
+<h1><font color="green"> Your order</font></h1>
+<br><br>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">products</th>
+      <th scope="col">unit price</th>
+      <th scope="col">quantity</th>
+      <th scope="col">total price</th>
+    </tr>
+  </thead>
+  {% for order in order_list %}
+  <tbody>
+    <tr>
+      <th scope="row">{{ order.id }}</th>
+      <td><font color="purple"> {{ order.product.name }}</font></td>
+      <td><font color="purple"> {{ order.product.price }}</font></td>
+      <td><font color="purple"> {{ order.quantity }}</font></td>
+      <td><font color="purple"> {{ order.price_order }}</font></td>
+    </tr>
+
+  {% endfor %}
+      <tr>
+      <th scope="col"><font color="green">total order price</font></th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+      <th scope="col"><font color="green">{{ total_price }} </font></th>
+    </tr>
+
+  </tbody>
+</table><br><br>
+
+<center>
+   <h1><a href="{% url 'delete_cart' %}"><font color="red"> Order</font></a></h1>
+</center>
+
+{% endblock %}
