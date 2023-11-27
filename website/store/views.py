@@ -1,5 +1,3 @@
-import logging
-
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.views import View
 from django.contrib.auth import login, authenticate
